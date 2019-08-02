@@ -1,52 +1,51 @@
-import React, {Component} from 'react';
+import React, {useState, useEffect} from 'react';
 import TodoAdd from './TodoAdd';
 import TodoItem from './TodoItem'
 
-export default class TodoList extends Component  {
-    constructor (props) {
-        super(props);
-        this.state = {TodoName: '', TodoArray: []};
-    }
+export default function TodoList () {
+    const [formInput, setFormInput] = useState('input a affair ');
+    const [todoArray, setTodoArray] = useState(['example: write a todo list','cccc']);
+    useEffect(() => {
+        document.title = `TodoList`;
+    });
 
-
-    handleChange = (input) => {
-        this.setState({TodoName: input});
+    const handleChange = (input) => {
+        setFormInput(input);
     };
 
-    handleAdd = () => {
-        const t = this.state.TodoArray;
-        t.push(this.state.TodoName);
-        this.setState({TodoArray: t});
+    const handleAdd = () => {
+        const t = [...todoArray];
+        t.push(formInput);
+        setTodoArray(t);
+
     };
 
-    handleRemove = (index) => {
-        const t = this.state.TodoArray;
+    const handleRemove = (index) => {
+        const t = [...todoArray];
         t.splice(index,1);
-        this.setState({TodoArray: t});
+        setTodoArray(t);
     };
 
-    render () {
-        const todoItems = this.state.TodoArray.map((affair,index) =>
-            <TodoItem
-                key = {index}
-                value = {affair}
-                index = {index}
-                onDelete = {this.handleRemove}
-            />)
-        return (
-            <>
-                <TodoAdd
-                    value = {this.state.TodoName}
-                    onAddChange = {this.handleChange}
-                    onAddSubmit = {this.handleAdd}
-                />
-                <ul>
-                    {todoItems}
-                </ul>
-            </>
-        )
-    }
+    const todoItems = todoArray.map((affair,index) =>
+        <TodoItem
+            key = {index}
+            value = {affair}
+            index = {index}
+            onDelete = {handleRemove}
+        />);
 
+    return (
+        <>
+            <TodoAdd
+                value = {formInput}
+                onAddChange = {handleChange}
+                onAddSubmit = {handleAdd}
+            />
+            <ul>
+                {todoItems}
+            </ul>
+        </>
+    )
 
 }
 

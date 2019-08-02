@@ -1,36 +1,33 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 
-export default class TodoItem extends Component {
-    constructor (props) {
-        super(props);
-        this.state = {isAccomplished: false}
-    }
+export default function TodoItem(props){
+    const [isAccomplished, setIsAccomplished] = useState(false);
 
-    handleDelete = () =>{
-        this.props.onDelete(this.props.index);
+    const handleDelete = () =>{
+        props.onDelete(props.index);
     };
 
 
-
-    render(){
-        return (
-            <li>
-                <span
-                    style={{textDecoration: this.state.isAccomplished ? "line-through":"none"}}
-                    onClick = {
-                        () => {
-                            this.state.isAccomplished ?
-                                this.setState({isAccomplished: false}) : this.setState({isAccomplished: true})
-                        }
+    return (
+        <li>
+            <span
+                style={{textDecoration: isAccomplished ? "line-through":"none"}}
+                onClick = {
+                    () => {
+                        isAccomplished ?
+                            setIsAccomplished(false) : setIsAccomplished(true)
                     }
-                >
-                    {this.props.value}
-                    </span>
-                <label onClick={this.handleDelete}>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;X
-                </label>
-            </li>
-        )
-    }
+                }
+            >
+                {props.value}
+            </span>
+            <label
+                onClick = {handleDelete}
+                style={{color: "#7d0000"}}
+            >
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DELETE
+            </label>
+        </li>
+    )
 
 }
