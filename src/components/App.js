@@ -1,10 +1,15 @@
 import React from 'react';
-import './App.css';
-import TodoList from './components/TodoList'
+import Footer from './Footer';
+import AddTodo from '../containers/AddTodo';
+import VisibleTodoList from '../containers/VisibleTodoList';
 
 function App() {
   return (
-    <TodoList/>
+      <>
+          <AddTodo />
+          <VisibleTodoList />
+          <Footer />
+      </>
   );
 }
 

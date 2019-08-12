@@ -1,28 +1,12 @@
-import React from 'react';
-import TodoAdd from './TodoAdd';
-import TodoItem from './TodoItem'
-import {rmTodo, addTodo} from "../actions";
+import React from 'react'
+import Todo from './Todo'
 
-export default function TodoList () {
+const TodoList = ({ todos, toggleTodo }) => (
+    <ul>
+        {todos.map(todo => (
+            <Todo key={todo.id} {...todo} onClick={() => toggleTodo(todo.id)} />
+        ))}
+    </ul>
+);
 
-    const todoItems = state.todos.map((affair,index) =>
-        <TodoItem
-            key = {index}
-            value = {affair}
-            index = {index}
-            onDelete = {dispatch(rmTodo(index))}
-        />);
-
-    return (
-        <>
-            <TodoAdd
-                onSubmit = {dispatch(addTodo(value))}
-            />
-            <ul>
-                {todoItems}
-            </ul>
-        </>
-    )
-
-}
-
+export default TodoList
