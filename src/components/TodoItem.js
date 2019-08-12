@@ -1,11 +1,8 @@
-import React, {useState} from 'react';
+import React from 'react';
 
 export default function TodoItem(props){
-    const [isAccomplished, setIsAccomplished] = useState(false);
 
-    const handleDelete = () =>{
-        props.onDelete(props.index);
-    };
+    const handleDelete = props.onDelete;
 
 
     return (
